@@ -6,6 +6,7 @@ let odpovedi = [ {
 ]
 _py.py_array_pop(odpovedi)
 let muzehlasovat = true
+let zmeneno = false
 radio.onReceivedValue(function on_received_value(name: string, value: number) {
     let zmeneno: boolean;
     let serial_num: number;
@@ -40,14 +41,17 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
     if (muzehlasovat) {
         muzehlasovat = false
+        radio.sendNumber(0)
     } else {
         muzehlasovat = true
+        radio.sendNumber(1)
     }
     
 })
 // zobrazování odpovědí
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     let pocet: number;
+    
     for (let i = 0; i < 5; i++) {
         pocet = 0
         for (let p of odpovedi) {
@@ -61,6 +65,7 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
     }
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function on_logo_event_pressed() {
+    
     for (let i = 0; i < odpovedi.length; i++) {
         odpovedi.removeAt(i)
     }

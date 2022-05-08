@@ -2,6 +2,7 @@ radio.set_group(15)
 odpovedi = [{"serial" : 156840, "vote": 0}]
 odpovedi.pop()
 muzehlasovat = True
+zmeneno = False
 
 radio.on_received_value(on_received_value)
 
@@ -29,12 +30,15 @@ def on_button_pressed_a():
 
     if muzehlasovat:
         muzehlasovat = False
+        radio.send_number(0)
     else:
         muzehlasovat = True
+        radio.send_number(1)
 
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_b():
+    global odpovedi
 
     for i in range (0,5):
         pocet = 0
@@ -48,6 +52,7 @@ def on_button_pressed_b():
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_logo_event_pressed():
+    global odpovedi
     for i in range(odpovedi.length):
         odpovedi.remove_at(i)
 input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_event_pressed)
