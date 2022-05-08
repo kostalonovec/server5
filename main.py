@@ -7,6 +7,7 @@ radio.on_received_value(on_received_value)
 
 def on_received_value(name, value):
     global odpovedi, muzehlasovat
+    
     if name == "answer" and muzehlasovat:
         zmeneno = False
         serial_num = radio.received_packet(RadioPacketProperty.SERIAL_NUMBER)
@@ -21,7 +22,7 @@ def on_received_value(name, value):
             odpovedi.push({"serial" : serial_num, "vote": value})
 
         radio.send_value("prijat", serial_num)
-        #klient může odpovídat
+        #klient může  znova odpovídat
 
 def on_button_pressed_a():
     global muzehlasovat
